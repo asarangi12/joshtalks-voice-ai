@@ -213,21 +213,39 @@ export function Hero() {
               key={p.id}
               href={`#${p.id}`}
               variants={itemVariants}
-              whileHover={{ y: -6 }}
+              whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="group relative rounded-xl border hairline bg-card p-6 hover:border-brand/30 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.22)] transition-[border-color,box-shadow] duration-300"
+              className="group relative overflow-hidden rounded-xl border hairline bg-card p-6 flex flex-col min-h-[280px] hover:border-brand/40 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.28)] transition-[border-color,box-shadow,transform] duration-300"
             >
-              <div className="flex items-center justify-between mb-10">
+              {/* gradient sheen */}
+              <span className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+              {/* corner crosshair */}
+              <span className="pointer-events-none absolute top-3 right-3 size-3 opacity-40 group-hover:opacity-100 transition-opacity">
+                <span className="absolute top-0 right-0 w-full h-px bg-foreground/60" />
+                <span className="absolute top-0 right-0 h-full w-px bg-foreground/60" />
+              </span>
+              {/* shimmer line on hover */}
+              <span className="pointer-events-none absolute -inset-x-1 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1200ms] ease-out" />
+
+              <div className="relative flex items-center justify-between mb-6">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{p.code}</span>
-                <span className="size-1.5 rounded-full bg-ember opacity-0 group-hover:opacity-100 transition" />
+                <span className="relative flex size-1.5">
+                  <span className="absolute inset-0 rounded-full bg-ember animate-ping opacity-0 group-hover:opacity-60" />
+                  <span className="relative size-1.5 rounded-full bg-ember opacity-40 group-hover:opacity-100 transition-opacity" />
+                </span>
               </div>
-              <div className="font-display text-2xl tracking-tight">{p.name}</div>
-              <div className="mt-1 text-[13px] text-muted-foreground">{p.sub}</div>
-              <div className="mt-8 flex items-end justify-between">
-                <span className="font-display text-xl text-brand">{p.meta}</span>
-                <span className="text-[11px] text-muted-foreground group-hover:text-ember transition-colors duration-300">explore →</span>
+
+              <div className="relative font-display text-2xl tracking-tight">{p.name}</div>
+              <div className="relative mt-3 text-[13px] leading-relaxed text-muted-foreground flex-1">{p.sub}</div>
+
+              <div className="relative mt-6 flex items-end justify-between gap-3">
+                <div className="flex-1 text-brand/70 group-hover:text-brand transition-colors">
+                  <CardVisual kind={p.visual} />
+                </div>
+                <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-muted-foreground group-hover:text-ember transition-colors duration-300 whitespace-nowrap">explore →</span>
               </div>
-              <span className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
+              <span className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
             </motion.a>
           ))}
         </Stagger>
