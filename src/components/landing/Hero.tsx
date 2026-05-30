@@ -1,91 +1,64 @@
-import { Waveform } from "./Waveform";
-
-const categories = [
-  { id: "01", code: "ASR.IN", name: "ASR Datasets", desc: "Channel-separated, multi-lingual", metric: "48.2k hrs", trend: "+12%" },
-  { id: "02", code: "TTS.EVAL", name: "TTS Evals", desc: "Naturalness + intelligibility scoring", metric: "1.4M utt", trend: "+8%" },
-  { id: "03", code: "VOI.22", name: "Voice of India", desc: "22 official languages, 700+ dialects", metric: "22 langs", trend: "live" },
-  { id: "04", code: "H1.HUM", name: "Human-1", desc: "Human preference reasoning bench", metric: "92.1 acc", trend: "v2.3" },
+const products = [
+  { id: "asr", code: "01 / ASR", name: "ASR Datasets", meta: "48,200 hrs", sub: "22 languages · channel-separated" },
+  { id: "tts", code: "02 / TTS", name: "TTS Evals", meta: "1.4M utterances", sub: "naturalness · intelligibility" },
+  { id: "voi", code: "03 / VOI", name: "Voice of India", meta: "22 languages", sub: "700+ dialects · 24 states" },
+  { id: "h1", code: "04 / H1", name: "Human-1", meta: "92.1 acc", sub: "human preference benchmark" },
 ];
 
 export function Hero() {
   return (
     <section className="relative border-b hairline">
-      <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 pt-20 pb-24 lg:pt-28 lg:pb-32">
-        {/* eyebrow */}
-        <div className="flex items-center gap-3 mb-10 font-mono text-[11px] text-muted-foreground">
-          <span className="size-1.5 rounded-full bg-signal animate-pulse" />
-          <span>SYS_STATUS: OPERATIONAL</span>
-          <span className="opacity-40">/</span>
-          <span>BUILD 2026.05.30</span>
-          <span className="opacity-40">/</span>
-          <span>BASE_INDIA</span>
+      <div className="absolute inset-0 grid-bg opacity-60 pointer-events-none [mask-image:linear-gradient(180deg,#000_0%,#000_50%,transparent_100%)]" />
+      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28">
+        <div className="flex items-center gap-3 mb-10 text-[12px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full border hairline bg-card px-2.5 py-1">
+            <span className="size-1.5 rounded-full bg-ember" />
+            <span className="text-foreground/80">Now serving 40+ AI labs</span>
+          </span>
+          <span className="hidden sm:inline">India-first voice infrastructure · est. 2018</span>
         </div>
 
-        <h1 className="font-display font-bold text-foreground text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.92] tracking-[-0.05em] text-balance">
-          Voice Infrastructure<br />
-          <span className="text-muted-foreground">for AI in</span> India<span className="text-signal">.</span>
+        <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-[-0.035em] text-balance max-w-[18ch]">
+          Infrastructure for<br className="hidden sm:block" /> Voice AI in <span className="italic text-brand">India</span><span className="text-ember">.</span>
         </h1>
 
-        <div className="mt-10 grid grid-cols-12 gap-6">
+        <div className="mt-10 grid grid-cols-12 gap-6 items-end">
           <p className="col-span-12 md:col-span-7 lg:col-span-6 text-base lg:text-lg text-muted-foreground max-w-xl leading-relaxed">
             Research-grade datasets and evaluations for top AI labs and tech
-            companies across the world — built on the ground, across 22
-            languages, 700+ dialects.
+            companies across the world — built on the ground, across{" "}
+            <span className="text-foreground">22 languages</span> and{" "}
+            <span className="text-foreground">700+ dialects</span>.
           </p>
-          <div className="col-span-12 md:col-span-5 lg:col-span-6 flex md:justify-end items-end gap-3">
-            <button className="font-mono text-xs px-5 py-3 bg-foreground text-background rounded-sm hover:bg-foreground/90 transition">
-              Request dataset access ↗
+          <div className="col-span-12 md:col-span-5 lg:col-span-6 flex md:justify-end items-end gap-3 flex-wrap">
+            <button className="text-sm px-5 py-2.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground transition">
+              Request dataset access →
             </button>
-            <button className="font-mono text-xs px-5 py-3 border hairline rounded-sm hover:bg-accent transition">
+            <button className="text-sm px-5 py-2.5 rounded-md border hairline bg-card hover:border-foreground/30 transition">
               Read whitepaper
             </button>
           </div>
         </div>
 
-        {/* Dashboard widget */}
-        <div className="mt-16 lg:mt-20 rounded-md border hairline bg-surface/60 backdrop-blur-sm overflow-hidden">
-          {/* terminal head */}
-          <div className="flex items-center justify-between px-5 py-3 border-b hairline">
-            <div className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-foreground/20" />
-              <span className="size-2 rounded-full bg-foreground/20" />
-              <span className="size-2 rounded-full bg-foreground/20" />
-              <span className="ml-3 font-mono text-[11px] text-muted-foreground">
-                ~/josh-voice <span className="text-signal">$</span> ls datasets/
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-4 font-mono text-[11px] text-muted-foreground">
-              <span>region: IN</span>
-              <span>tier: research</span>
-              <Waveform bars={14} className="h-4" />
-            </div>
-          </div>
-
-          {/* dashboard grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {categories.map((c, i) => (
-              <button
-                key={c.id}
-                className={`group text-left p-6 lg:p-7 border-b md:border-b-0 hairline transition hover:bg-accent/40 ${
-                  i < 3 ? "md:border-r" : ""
-                } ${i === 1 ? "md:border-b lg:border-b-0" : ""} ${i === 0 ? "md:border-b lg:border-b-0" : ""}`}
-              >
-                <div className="flex items-center justify-between mb-8">
-                  <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
-                  <span className="font-mono text-[10px] text-signal">{c.trend}</span>
-                </div>
-                <div className="font-display text-2xl tracking-tight mb-1">{c.name}</div>
-                <div className="text-xs text-muted-foreground mb-6">{c.desc}</div>
-                <div className="flex items-end justify-between">
-                  <span className="font-mono text-xl">{c.metric}</span>
-                  <span className="font-mono text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition">
-                    explore →
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+        {/* product bento */}
+        <div className="mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {products.map((p) => (
+            <a
+              key={p.id}
+              href={`#${p.id}`}
+              className="group relative rounded-xl border hairline bg-card p-6 hover:border-foreground/25 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)] transition"
+            >
+              <div className="flex items-center justify-between mb-10">
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{p.code}</span>
+                <span className="size-1.5 rounded-full bg-ember opacity-0 group-hover:opacity-100 transition" />
+              </div>
+              <div className="font-display text-2xl tracking-tight">{p.name}</div>
+              <div className="mt-1 text-[13px] text-muted-foreground">{p.sub}</div>
+              <div className="mt-8 flex items-end justify-between">
+                <span className="font-display text-xl text-brand">{p.meta}</span>
+                <span className="text-[11px] text-muted-foreground group-hover:text-foreground transition">explore →</span>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>

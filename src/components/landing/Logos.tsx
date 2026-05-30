@@ -1,25 +1,46 @@
-const logos = ["OpenAI", "Meta", "Amazon", "WhatsApp", "Google", "Spotify", "Anthropic", "Microsoft"];
+const logos = [
+  "OpenAI",
+  "Meta",
+  "Amazon",
+  "WhatsApp",
+  "Google",
+  "Spotify",
+  "UN Women",
+  "IFC",
+  "Gates Foundation",
+  "ILO",
+  "Omidyar Network India",
+  "Anthropic",
+];
 
 export function Logos() {
   return (
-    <section className="border-b hairline py-14">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-        <div className="flex items-center gap-6 mb-8 font-mono text-[11px] text-muted-foreground">
-          <span>// TRUSTED BY RESEARCH TEAMS AT</span>
-          <span className="flex-1 h-px bg-border" />
-          <span>n = 40+ labs</span>
+    <section className="border-b hairline">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-20 lg:py-24">
+        <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+          <h3 className="font-display text-2xl lg:text-3xl tracking-[-0.025em] max-w-md">
+            Trusted by research teams <span className="italic text-brand">globally</span>.
+          </h3>
+          <span className="font-mono text-[11px] text-muted-foreground tracking-[0.2em] uppercase">
+            n = 40+ labs · 12 countries
+          </span>
         </div>
-        <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-          <div className="marquee flex gap-16 w-max">
-            {[...logos, ...logos].map((l, i) => (
-              <span
-                key={i}
-                className="font-display text-3xl lg:text-4xl tracking-tight text-foreground/70 hover:text-foreground transition whitespace-nowrap"
-              >
-                {l}
-              </span>
-            ))}
-          </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 border hairline rounded-xl overflow-hidden bg-card">
+          {logos.map((l, i) => (
+            <div
+              key={l}
+              className={`h-24 flex items-center justify-center px-6 text-center font-display text-base lg:text-lg tracking-tight text-foreground/55 hover:text-foreground transition
+                ${i % 6 !== 5 ? "lg:border-r hairline" : ""}
+                ${i % 4 !== 3 ? "md:border-r hairline" : ""}
+                ${i % 3 !== 2 ? "sm:border-r hairline" : ""}
+                ${i % 2 !== 1 ? "border-r hairline" : ""}
+                ${i < logos.length - 2 ? "border-b hairline" : ""}
+              `}
+            >
+              {l}
+            </div>
+          ))}
         </div>
       </div>
     </section>

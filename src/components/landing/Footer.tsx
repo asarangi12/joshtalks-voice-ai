@@ -1,79 +1,92 @@
 import { useState } from "react";
-import { Waveform } from "./Waveform";
 
 export function Footer() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
 
   return (
-    <footer className="relative overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-      <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-        <div className="grid grid-cols-12 gap-10 mb-20">
-          <div className="col-span-12 lg:col-span-7">
-            <div className="font-mono text-[11px] text-muted-foreground mb-4">[05] SUBSCRIBE</div>
-            <h3 className="font-display text-4xl lg:text-6xl tracking-[-0.04em] leading-[0.95] mb-4">
-              Stay updated on<br />new Voice AI datasets.
-            </h3>
-            <p className="text-muted-foreground max-w-md mb-10">
-              Monthly drop. New languages, new benchmarks, new research. No fluff.
-            </p>
-            <form
-              onSubmit={(e) => { e.preventDefault(); if (email) setSent(true); }}
-              className="flex items-center border hairline rounded-sm bg-surface/60 backdrop-blur max-w-xl overflow-hidden focus-within:border-foreground/40 transition"
-            >
-              <span className="pl-4 font-mono text-xs text-muted-foreground">→</span>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="researcher@lab.ai"
-                className="flex-1 bg-transparent px-3 py-4 text-sm outline-none placeholder:text-muted-foreground/60 font-mono"
-              />
-              <button
-                type="submit"
-                className="m-1.5 px-5 py-3 bg-foreground text-background font-mono text-xs rounded-sm hover:bg-foreground/90 transition whitespace-nowrap"
-              >
-                {sent ? "✓ subscribed" : "subscribe ↗"}
-              </button>
-            </form>
+    <footer id="contact" className="bg-background">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+        <div className="rounded-2xl border hairline bg-card p-10 lg:p-16 text-center max-w-3xl mx-auto">
+          <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase mb-5">
+            [ 06 ] — Newsletter
           </div>
+          <h3 className="font-display text-3xl lg:text-5xl tracking-[-0.03em] leading-[1.05] text-balance">
+            Stay updated on new <span className="italic text-brand">Voice AI</span> datasets.
+          </h3>
+          <p className="mt-5 text-muted-foreground max-w-md mx-auto">
+            A monthly drop covering new languages, benchmarks, and research releases from the Josh Talks AI lab. No fluff.
+          </p>
+          <form
+            onSubmit={(e) => { e.preventDefault(); if (email) setSent(true); }}
+            className="mt-10 flex items-center max-w-md mx-auto border hairline rounded-full bg-background overflow-hidden focus-within:border-brand/40 focus-within:ring-2 focus-within:ring-brand/15 transition"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@research.org"
+              className="flex-1 bg-transparent px-5 py-3.5 text-sm outline-none placeholder:text-muted-foreground"
+            />
+            <button
+              type="submit"
+              className="m-1.5 px-5 py-2.5 bg-brand text-brand-foreground hover:bg-ember transition text-sm rounded-full whitespace-nowrap"
+            >
+              {sent ? "✓ Subscribed" : "Subscribe →"}
+            </button>
+          </form>
+        </div>
 
-          <div className="col-span-6 lg:col-span-2 lg:col-start-9">
-            <div className="font-mono text-[10px] text-muted-foreground mb-4">PRODUCT</div>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">ASR Datasets</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">TTS Evals</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Voice of India</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Human-1</a></li>
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2.5">
+              <span className="size-7 rounded-md bg-brand grid place-items-center">
+                <span className="text-brand-foreground font-display text-[11px] font-semibold leading-none">JT</span>
+              </span>
+              <span className="font-display text-base tracking-tight">
+                Josh Talks <span className="text-ember">AI</span>
+              </span>
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground leading-relaxed max-w-[220px]">
+              Voice infrastructure for AI in India. Built in Gurugram, recorded across the country.
+            </p>
+          </div>
+          <div>
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-4">Product</div>
+            <ul className="space-y-2.5 text-foreground/75">
+              <li><a href="#asr" className="hover:text-brand transition">ASR Datasets</a></li>
+              <li><a href="#tts" className="hover:text-brand transition">TTS Evals</a></li>
+              <li><a href="#voi" className="hover:text-brand transition">Voice of India</a></li>
+              <li><a href="#human1" className="hover:text-brand transition">Human-1</a></li>
             </ul>
           </div>
-          <div className="col-span-6 lg:col-span-2">
-            <div className="font-mono text-[10px] text-muted-foreground mb-4">COMPANY</div>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Research</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Careers</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Contact</a></li>
-              <li><a href="#" className="hover:text-foreground text-muted-foreground transition">Press</a></li>
+          <div>
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-4">Company</div>
+            <ul className="space-y-2.5 text-foreground/75">
+              <li><a href="#research" className="hover:text-brand transition">Research</a></li>
+              <li><a href="#" className="hover:text-brand transition">Careers</a></li>
+              <li><a href="#contact" className="hover:text-brand transition">Contact</a></li>
+              <li><a href="#" className="hover:text-brand transition">Press</a></li>
+            </ul>
+          </div>
+          <div>
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-4">Legal</div>
+            <ul className="space-y-2.5 text-foreground/75">
+              <li><a href="#" className="hover:text-brand transition">Privacy</a></li>
+              <li><a href="#" className="hover:text-brand transition">Terms</a></li>
+              <li><a href="#" className="hover:text-brand transition">DPDP</a></li>
+              <li><a href="#" className="hover:text-brand transition">Security</a></li>
             </ul>
           </div>
         </div>
 
-        {/* Big wordmark */}
-        <div className="border-t hairline pt-12">
-          <div className="font-display font-bold tracking-[-0.06em] text-[clamp(3rem,15vw,13rem)] leading-[0.85] text-foreground/90">
-            josh.ai/voice
-          </div>
-          <div className="mt-10 flex items-center justify-between flex-wrap gap-4 font-mono text-[11px] text-muted-foreground">
-            <div>© 2026 Josh Talks AI — Built in Gurugram, recorded across India.</div>
-            <div className="flex items-center gap-4">
-              <Waveform bars={12} className="h-4" />
-              <span>uptime 99.99%</span>
-              <a href="#" className="hover:text-foreground">privacy</a>
-              <a href="#" className="hover:text-foreground">terms</a>
-            </div>
-          </div>
+        <div className="mt-16 pt-8 border-t hairline flex items-center justify-between flex-wrap gap-3 font-mono text-[11px] text-muted-foreground">
+          <span>© 2026 Josh Talks AI — All rights reserved.</span>
+          <span className="flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-ember" />
+            Systems operational · uptime 99.99%
+          </span>
         </div>
       </div>
     </footer>
