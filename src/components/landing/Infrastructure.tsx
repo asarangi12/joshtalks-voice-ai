@@ -77,7 +77,7 @@ export function Infrastructure() {
               <button
                 key={f.k}
                 onClick={() => setActive(f.k)}
-                className={`relative text-sm px-4 py-2 rounded-full transition-colors duration-300 ${
+                className={`tab-underline relative text-sm px-4 py-2 rounded-full transition-colors duration-300 ${
                   active === f.k ? "text-brand-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -91,6 +91,7 @@ export function Infrastructure() {
                 <span className="relative font-mono text-[10px] tracking-[0.18em] uppercase mr-2 opacity-70">{f.k}</span>
                 <span className="relative">{f.tag}</span>
               </button>
+
             ))}
           </div>
         </Reveal>
@@ -120,18 +121,28 @@ export function Infrastructure() {
                   </a>
                 </div>
                 <div className="col-span-12 lg:col-span-6 lg:col-start-7 grid grid-cols-3 gap-px bg-border rounded-xl overflow-hidden border hairline">
-                  {f.stats.map((s, i) => (
-                    <motion.div
-                      key={s.l}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                      className="bg-card p-5 lg:p-7 flex flex-col justify-between min-h-[140px]"
-                    >
-                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</span>
-                      <span className="font-display text-2xl lg:text-4xl tracking-[-0.03em] text-foreground mt-6">{s.v}</span>
-                    </motion.div>
-                  ))}
+                  {f.stats.map((s, i) => {
+                    const dirs = [
+                      { x: -20, y: 0 },
+                      { x: 0, y: 20 },
+                      { x: 20, y: 0 },
+                    ];
+                    const d = dirs[i % dirs.length];
+                    return (
+                      <motion.div
+                        key={s.l}
+                        initial={{ opacity: 0, x: d.x, y: d.y, filter: "blur(6px)" }}
+                        animate={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, x: -d.x, y: -d.y, filter: "blur(6px)" }}
+                        transition={{ duration: 0.55, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="bg-card p-5 lg:p-7 flex flex-col justify-between min-h-[140px]"
+                      >
+                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</span>
+                        <span className="font-display text-2xl lg:text-4xl tracking-[-0.03em] text-foreground mt-6">{s.v}</span>
+                      </motion.div>
+                    );
+                  })}
+
                 </div>
               </motion.div>
             ))}

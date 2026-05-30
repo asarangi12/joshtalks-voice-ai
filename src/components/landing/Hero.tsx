@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { Reveal, Stagger, itemVariants } from "./Reveal";
+import { Stagger, itemVariants } from "./Reveal";
+import { ParticleField } from "./ParticleField";
+
 
 const products = [
   { id: "asr", code: "01 / ASR", name: "ASR Datasets", meta: "48,200 hrs", sub: "22 languages · channel-separated" },
@@ -13,21 +15,24 @@ const headlineWords = ["Infrastructure", "for", "Voice", "AI", "in"];
 export function Hero() {
   return (
     <section className="relative border-b hairline overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-60 pointer-events-none [mask-image:linear-gradient(180deg,#000_0%,#000_50%,transparent_100%)]" />
+      <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none [mask-image:linear-gradient(180deg,#000_0%,#000_50%,transparent_100%)]" />
+      <ParticleField className="opacity-[0.55] [mask-image:linear-gradient(180deg,#000_0%,#000_60%,transparent_100%)]" />
       <div className="relative max-w-[1400px] mx-auto px-6 lg:px-10 pt-20 pb-20 lg:pt-28 lg:pb-28">
+
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-3 mb-10 text-[12px] text-muted-foreground"
         >
-          <span className="inline-flex items-center gap-1.5 rounded-full border hairline bg-card px-2.5 py-1">
+          <span className="inline-flex items-center gap-1.5 rounded-full border hairline bg-card px-2.5 py-1 ember-pulse">
             <span className="relative flex size-1.5">
               <span className="absolute inset-0 rounded-full bg-ember animate-ping opacity-60" />
               <span className="relative size-1.5 rounded-full bg-ember" />
             </span>
             <span className="text-foreground/80">Now serving 40+ AI labs</span>
           </span>
+
           <span className="hidden sm:inline">India-first voice infrastructure · est. 2018</span>
         </motion.div>
 
@@ -73,12 +78,13 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="col-span-12 md:col-span-5 lg:col-span-6 flex md:justify-end items-end gap-3 flex-wrap"
           >
-            <button className="text-sm px-5 py-2.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground transition-colors duration-300">
+            <button className="btn-lift text-sm px-5 py-2.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground">
               Request dataset access →
             </button>
-            <button className="text-sm px-5 py-2.5 rounded-md border hairline bg-card hover:border-foreground/30 hover:bg-surface transition-all duration-300">
+            <button className="btn-lift text-sm px-5 py-2.5 rounded-md border hairline bg-card hover:border-foreground/30 hover:bg-surface">
               Read whitepaper
             </button>
+
           </motion.div>
         </div>
 
