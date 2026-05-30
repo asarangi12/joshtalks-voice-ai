@@ -3,12 +3,130 @@ import { Stagger, itemVariants } from "./Reveal";
 import { ParticleField } from "./ParticleField";
 
 
-const products = [
-  { id: "asr", code: "01 / ASR", name: "ASR Datasets", meta: "48,200 hrs", sub: "22 languages · channel-separated" },
-  { id: "tts", code: "02 / TTS", name: "TTS Evals", meta: "1.4M utterances", sub: "naturalness · intelligibility" },
-  { id: "voi", code: "03 / VOI", name: "Voice of India", meta: "22 languages", sub: "700+ dialects · 24 states" },
-  { id: "h1", code: "04 / H1", name: "Human-1", meta: "92.1 acc", sub: "human preference benchmark" },
+type Visual = "waves" | "pulse" | "map" | "duplex";
+
+const products: Array<{
+  id: string;
+  code: string;
+  name: string;
+  sub: string;
+  accent: string;
+  visual: Visual;
+}> = [
+  {
+    id: "asr",
+    code: "01 / ASR",
+    name: "ASR Datasets",
+    sub: "Channel-separated conversational audio datasets. Improve model performance with our off-the-shelf, production-ready corpora.",
+    accent: "from-brand/15 via-brand/5 to-transparent",
+    visual: "waves",
+  },
+  {
+    id: "tts",
+    code: "02 / TTS",
+    name: "TTS Evals",
+    sub: "Human evaluations for Voice AI & TTS. Plug into your training and release pipelines — results in hours, not weeks.",
+    accent: "from-ember/20 via-ember/5 to-transparent",
+    visual: "pulse",
+  },
+  {
+    id: "voi",
+    code: "03 / VOI",
+    name: "Voice of India",
+    sub: "India's national reference benchmark for speech recognition — built at national scale, scored with linguistic fidelity, measured for real-world deployment readiness.",
+    accent: "from-brand/15 via-ember/10 to-transparent",
+    visual: "map",
+  },
+  {
+    id: "h1",
+    code: "04 / H1",
+    name: "Human-1",
+    sub: "A full-duplex conversational speech model for Hindi — trained on 26,000 hours of spontaneous conversations from 14,695 speakers.",
+    accent: "from-ember/15 via-brand/5 to-transparent",
+    visual: "duplex",
+  },
 ];
+
+function CardVisual({ kind }: { kind: Visual }) {
+  if (kind === "waves") {
+    return (
+      <svg viewBox="0 0 120 40" className="w-full h-10 overflow-visible">
+        {Array.from({ length: 24 }).map((_, i) => {
+          const h = 6 + Math.abs(Math.sin(i * 0.9)) * 26;
+          return (
+            <rect
+              key={i}
+              x={i * 5}
+              y={20 - h / 2}
+              width="2"
+              height={h}
+              rx="1"
+              className="fill-brand/70 wave-bar"
+              style={{ animationDelay: `${i * 0.06}s`, transformOrigin: "center" }}
+            />
+          );
+        })}
+      </svg>
+    );
+  }
+  if (kind === "pulse") {
+    return (
+      <svg viewBox="0 0 120 40" className="w-full h-10">
+        <path
+          d="M0 20 L18 20 L24 8 L32 32 L40 14 L48 26 L56 20 L120 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="text-ember"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle r="2.5" className="fill-ember">
+          <animateMotion
+            dur="3.2s"
+            repeatCount="indefinite"
+            path="M0 20 L18 20 L24 8 L32 32 L40 14 L48 26 L56 20 L120 20"
+          />
+        </circle>
+      </svg>
+    );
+  }
+  if (kind === "map") {
+    return (
+      <div className="relative w-full h-10">
+        <div className="absolute inset-0 grid grid-cols-12 gap-[3px]">
+          {Array.from({ length: 60 }).map((_, i) => (
+            <span
+              key={i}
+              className="size-[3px] rounded-full bg-brand/50"
+              style={{
+                opacity: 0.3 + ((i * 37) % 70) / 100,
+                animation: `wave-pulse ${1.6 + (i % 5) * 0.3}s ease-in-out ${(i % 7) * 0.15}s infinite`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  // duplex
+  return (
+    <div className="w-full h-10 flex flex-col justify-center gap-1.5">
+      <div className="flex items-center gap-2">
+        <span className="font-mono text-[9px] text-muted-foreground w-3">A</span>
+        <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
+          <div className="h-full w-3/4 bg-brand rounded-full origin-left" style={{ animation: "wave-pulse 2s ease-in-out infinite" }} />
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono text-[9px] text-muted-foreground w-3">B</span>
+        <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
+          <div className="h-full w-2/3 bg-ember rounded-full origin-left" style={{ animation: "wave-pulse 2s ease-in-out 0.6s infinite" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const headlineWords = ["Infrastructure", "for", "Voice", "AI", "in"];
 
