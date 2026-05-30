@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Reveal } from "./Reveal";
+
 const features = [
   {
     k: "01",
@@ -34,8 +38,8 @@ const features = [
   },
   {
     k: "04",
-    tag: "Other",
-    t: "Other Datasets",
+    tag: "Specialized",
+    t: "Specialized Datasets",
     d: "Privacy-preserving voice, child speech corpora, and adverse-environment recordings — street, vehicle, call-center and outdoor — built for the long-tail your model will actually meet.",
     stats: [
       { l: "Child speech (hrs)", v: "1,200" },
@@ -46,49 +50,92 @@ const features = [
 ];
 
 export function Infrastructure() {
+  const [active, setActive] = useState<string>("01");
+
   return (
     <section id="datasets" className="border-b hairline bg-surface/60">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="grid grid-cols-12 gap-6 mb-14">
-          <div className="col-span-12 lg:col-span-7">
+          <Reveal className="col-span-12 lg:col-span-7">
             <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground mb-4 uppercase">[ 04 ] — Datasets</div>
             <h2 className="font-display font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.02] tracking-[-0.03em] text-balance">
               Channel-separated <span className="italic text-brand">conversational</span> audio.
             </h2>
-          </div>
-          <p className="col-span-12 lg:col-span-4 lg:col-start-9 text-muted-foreground self-end leading-relaxed">
-            The substrate that powers India-ready speech models — sampled, annotated
-            and evaluated by linguists across 24 states.
-          </p>
+          </Reveal>
+          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-9 self-end" delay={1}>
+            <p className="text-muted-foreground leading-relaxed">
+              The substrate that powers India-ready speech models — sampled, annotated
+              and evaluated by linguists across 24 states.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="border-t hairline">
-          {features.map((f, i) => (
-            <div
-              key={f.k}
-              className={`grid grid-cols-12 gap-6 lg:gap-10 py-10 lg:py-14 border-b hairline ${
-                i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-              }`}
-            >
-              <div className="col-span-12 lg:col-span-5 flex flex-col">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">{f.k}</span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-full border hairline bg-card text-foreground/70">{f.tag}</span>
-                </div>
-                <h3 className="font-display text-3xl lg:text-5xl tracking-[-0.03em] leading-[1.02]">{f.t}</h3>
-                <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed max-w-md">{f.d}</p>
-                <a href="#" className="mt-6 text-sm text-brand hover:text-ember transition">Explore dataset →</a>
-              </div>
-              <div className="col-span-12 lg:col-span-6 lg:col-start-7 grid grid-cols-3 gap-px bg-border rounded-xl overflow-hidden border hairline">
-                {f.stats.map((s) => (
-                  <div key={s.l} className="bg-card p-5 lg:p-7 flex flex-col justify-between min-h-[140px]">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</span>
-                    <span className="font-display text-2xl lg:text-4xl tracking-[-0.03em] text-foreground mt-6">{s.v}</span>
+        {/* Tab switcher */}
+        <Reveal>
+          <div className="flex flex-wrap gap-2 mb-8 border hairline bg-card rounded-full p-1.5 w-fit">
+            {features.map((f) => (
+              <button
+                key={f.k}
+                onClick={() => setActive(f.k)}
+                className={`relative text-sm px-4 py-2 rounded-full transition-colors duration-300 ${
+                  active === f.k ? "text-brand-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {active === f.k && (
+                  <motion.span
+                    layoutId="tab-pill"
+                    className="absolute inset-0 bg-brand rounded-full"
+                    transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                  />
+                )}
+                <span className="relative font-mono text-[10px] tracking-[0.18em] uppercase mr-2 opacity-70">{f.k}</span>
+                <span className="relative">{f.tag}</span>
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Active feature panel */}
+        <div className="border hairline rounded-2xl bg-card overflow-hidden">
+          <AnimatePresence mode="wait">
+            {features.filter((f) => f.k === active).map((f) => (
+              <motion.div
+                key={f.k}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-12 gap-6 lg:gap-10 p-8 lg:p-12"
+              >
+                <div className="col-span-12 lg:col-span-5 flex flex-col">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">{f.k}</span>
+                    <span className="text-[11px] px-2 py-0.5 rounded-full border hairline bg-surface text-foreground/70">{f.tag}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
+                  <h3 className="font-display text-3xl lg:text-5xl tracking-[-0.03em] leading-[1.02]">{f.t}</h3>
+                  <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed max-w-md">{f.d}</p>
+                  <a href="#" className="mt-6 text-sm text-brand hover:text-ember transition-colors duration-300 inline-flex items-center gap-1.5 group w-fit">
+                    Explore dataset
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </a>
+                </div>
+                <div className="col-span-12 lg:col-span-6 lg:col-start-7 grid grid-cols-3 gap-px bg-border rounded-xl overflow-hidden border hairline">
+                  {f.stats.map((s, i) => (
+                    <motion.div
+                      key={s.l}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+                      className="bg-card p-5 lg:p-7 flex flex-col justify-between min-h-[140px]"
+                    >
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</span>
+                      <span className="font-display text-2xl lg:text-4xl tracking-[-0.03em] text-foreground mt-6">{s.v}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>

@@ -19,7 +19,7 @@ export function Footer() {
           </p>
           <form
             onSubmit={(e) => { e.preventDefault(); if (email) setSent(true); }}
-            className="mt-10 flex items-center max-w-md mx-auto border hairline rounded-full bg-background overflow-hidden focus-within:border-brand/40 focus-within:ring-2 focus-within:ring-brand/15 transition"
+            className="mt-10 flex items-center max-w-md mx-auto border hairline rounded-full bg-background overflow-hidden focus-within:border-brand/50 focus-within:ring-4 focus-within:ring-brand/10 transition-all duration-300"
           >
             <input
               type="email"
@@ -31,7 +31,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="m-1.5 px-5 py-2.5 bg-brand text-brand-foreground hover:bg-ember transition text-sm rounded-full whitespace-nowrap"
+              className="m-1.5 px-5 py-2.5 bg-brand text-brand-foreground hover:bg-ember transition-colors duration-300 text-sm rounded-full whitespace-nowrap"
             >
               {sent ? "✓ Subscribed" : "Subscribe →"}
             </button>

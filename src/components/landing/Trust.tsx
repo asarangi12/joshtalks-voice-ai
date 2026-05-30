@@ -1,11 +1,15 @@
+import { motion } from "framer-motion";
+import { Reveal, Stagger, itemVariants } from "./Reveal";
+import { CountUp } from "./CountUp";
+
 function MiniWave() {
   return (
-    <div className="relative h-28 rounded-md border hairline bg-surface p-3 overflow-hidden">
+    <div className="relative h-28 rounded-md border hairline bg-surface p-3 overflow-hidden group">
       <div className="absolute inset-x-3 top-1/2 -translate-y-1/2 flex items-center gap-[2px] h-16">
         {Array.from({ length: 56 }).map((_, i) => (
           <span
             key={i}
-            className="wave-bar flex-1 bg-brand/70 rounded-full"
+            className="wave-bar flex-1 bg-brand/70 rounded-full group-hover:bg-ember transition-colors duration-500"
             style={{
               height: `${20 + (Math.sin(i * 0.55 + 1) * 0.5 + 0.5) * 80}%`,
               animationDelay: `${(i * 50) % 1400}ms`,
@@ -20,20 +24,28 @@ function MiniWave() {
 
 function MiniBars() {
   const items = [
-    { l: "WER", v: 92, n: "4.1%" },
-    { l: "CER", v: 78, n: "1.8%" },
-    { l: "MOS", v: 88, n: "4.42" },
-    { l: "BLEU", v: 64, n: "0.71" },
+    { l: "WER", v: 92, n: 4.1, suffix: "%", decimals: 1 },
+    { l: "CER", v: 78, n: 1.8, suffix: "%", decimals: 1 },
+    { l: "MOS", v: 88, n: 4.42, suffix: "", decimals: 2 },
+    { l: "BLEU", v: 64, n: 0.71, suffix: "", decimals: 2 },
   ];
   return (
     <div className="h-28 rounded-md border hairline bg-surface p-3 flex flex-col justify-end gap-2">
-      {items.map((b) => (
+      {items.map((b, i) => (
         <div key={b.l} className="flex items-center gap-2 font-mono text-[10px]">
           <span className="w-9 text-muted-foreground">{b.l}</span>
           <div className="flex-1 h-1.5 bg-border/70 rounded-full overflow-hidden">
-            <div className="h-full bg-brand rounded-full" style={{ width: `${b.v}%` }} />
+            <motion.div
+              className="h-full bg-brand rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: `${b.v}%` }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 1.2, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            />
           </div>
-          <span className="w-10 text-right text-foreground/80">{b.n}</span>
+          <span className="w-10 text-right text-foreground/80">
+            <CountUp to={b.n} suffix={b.suffix} decimals={b.decimals} />
+          </span>
         </div>
       ))}
     </div>
@@ -62,14 +74,21 @@ function MiniSecurity() {
   ];
   return (
     <div className="h-28 rounded-md border hairline bg-surface p-3 flex flex-col justify-between text-[11px]">
-      {items.map((it) => (
-        <div key={it.l} className="flex items-center justify-between font-mono">
+      {items.map((it, i) => (
+        <motion.div
+          key={it.l}
+          initial={{ opacity: 0, x: -8 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          className="flex items-center justify-between font-mono"
+        >
           <span className="text-foreground/80">{it.l}</span>
           <span className="inline-flex items-center gap-1.5 text-brand">
             <span className="size-1.5 rounded-full bg-ember" />
             <span className="text-[10px]">verified</span>
           </span>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
@@ -87,20 +106,28 @@ export function Trust() {
     <section id="trust" className="border-b hairline">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="grid grid-cols-12 gap-6 mb-14">
-          <div className="col-span-12 lg:col-span-7">
+          <Reveal className="col-span-12 lg:col-span-7">
             <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground mb-4 uppercase">[ 03 ] — Trust Layer</div>
             <h2 className="font-display font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.02] tracking-[-0.03em] text-balance">
               Built on consent. <span className="italic text-brand">Measured</span> on rigor.
             </h2>
-          </div>
-          <p className="col-span-12 lg:col-span-4 lg:col-start-9 text-muted-foreground self-end leading-relaxed">
-            Four non-negotiables behind every dataset we ship — engineered for production loops, audited for research review.
-          </p>
+          </Reveal>
+          <Reveal className="col-span-12 lg:col-span-4 lg:col-start-9 self-end" delay={1}>
+            <p className="text-muted-foreground leading-relaxed">
+              Four non-negotiables behind every dataset we ship — engineered for production loops, audited for research review.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" stagger={0.1}>
           {items.map((it) => (
-            <article key={it.k} className="rounded-xl border hairline bg-card p-6 hover:border-foreground/25 transition flex flex-col">
+            <motion.article
+              key={it.k}
+              variants={itemVariants}
+              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="rounded-xl border hairline bg-card p-6 hover:border-brand/30 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)] transition-[border-color,box-shadow] duration-300 flex flex-col"
+            >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{it.k}</span>
                 <span className="font-mono text-[10px] text-muted-foreground">view →</span>
@@ -108,9 +135,9 @@ export function Trust() {
               <h3 className="font-display text-xl tracking-tight">{it.t}</h3>
               <p className="text-[13px] text-muted-foreground mt-2 leading-relaxed">{it.d}</p>
               <div className="mt-6">{it.v}</div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );
