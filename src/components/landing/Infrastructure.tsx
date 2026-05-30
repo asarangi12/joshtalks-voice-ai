@@ -1,70 +1,92 @@
-import { Waveform } from "./Waveform";
-
 const features = [
-  { k: "01", t: "Multi-lingual Datasets", v: "22 / 700+", l: "languages / dialects", d: "Hindi, Tamil, Telugu, Bengali, Marathi, Punjabi, Kannada — natively recorded, not translated." },
-  { k: "02", t: "Emotion-Rich Data", v: "11", l: "emotion classes", d: "Joy, anger, fatigue, frustration, surprise — annotated frame-level by native reviewers." },
-  { k: "03", t: "Channel Separation", v: "2-ch", l: "speaker-isolated", d: "Agent / customer split for clean diarization, ASR fine-tuning and RLHF pipelines." },
-  { k: "04", t: "Acoustic Diversity", v: "48kHz", l: "studio + field", d: "Studio, street, vehicle, call-center, indoor and outdoor — real-world SNR distribution." },
+  {
+    k: "01",
+    tag: "Multi-lingual",
+    t: "Multi-lingual Datasets",
+    d: "Natively recorded conversations across 22 Indian languages with frequent code-switching between English, Hindi and regional tongues — captured the way India actually speaks.",
+    stats: [
+      { l: "Languages", v: "22" },
+      { l: "Code-switch", v: "37%" },
+      { l: "Dialects", v: "700+" },
+    ],
+  },
+  {
+    k: "02",
+    tag: "Multi-Speaker",
+    t: "Multi-Speaker Datasets",
+    d: "Spontaneous conversations, panel debates and multi-party meetings with clean channel separation — ideal for diarization, RLHF pipelines and agent/customer modelling.",
+    stats: [
+      { l: "Speakers / session", v: "2–8" },
+      { l: "Avg. turns", v: "112" },
+      { l: "Channel split", v: "2-ch" },
+    ],
+  },
+  {
+    k: "03",
+    tag: "Emotion-Rich",
+    t: "Emotion Rich Data",
+    d: "Frame-level annotations across 9 distinct emotional states — including joy, anger, fatigue, frustration and surprise — labelled by native reviewers in real conversational context.",
+    stats: [
+      { l: "Emotion classes", v: "9" },
+      { l: "Annotator agreement κ", v: "0.81" },
+      { l: "Hours labelled", v: "12.4k" },
+    ],
+  },
+  {
+    k: "04",
+    tag: "Other",
+    t: "Other Datasets",
+    d: "Privacy-preserving voice, child speech corpora, and adverse-environment recordings — street, vehicle, call-center and outdoor — built for the long-tail your model will actually meet.",
+    stats: [
+      { l: "Child speech (hrs)", v: "1,200" },
+      { l: "Adverse SNR", v: "–5 to 25dB" },
+      { l: "Privacy mode", v: "on-device" },
+    ],
+  },
 ];
 
 export function Infrastructure() {
   return (
-    <section id="infra" className="border-b hairline">
+    <section id="datasets" className="border-b hairline bg-surface/60">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
-        <div className="grid grid-cols-12 gap-6 mb-16">
-          <div className="col-span-12 lg:col-span-5">
-            <div className="font-mono text-[11px] text-muted-foreground mb-4">[03] CORE_INFRASTRUCTURE</div>
-            <h2 className="font-display text-4xl lg:text-6xl tracking-[-0.04em] leading-[0.95]">
-              Channel-separated<br />
-              conversational<br />
-              <span className="text-muted-foreground">audio datasets.</span>
+        <div className="grid grid-cols-12 gap-6 mb-14">
+          <div className="col-span-12 lg:col-span-7">
+            <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground mb-4 uppercase">[ 04 ] — Datasets</div>
+            <h2 className="font-display font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.02] tracking-[-0.03em] text-balance">
+              Channel-separated <span className="italic text-brand">conversational</span> audio.
             </h2>
           </div>
-          <div className="col-span-12 lg:col-span-6 lg:col-start-7 flex items-end">
-            <p className="text-muted-foreground max-w-lg">
-              The substrate that powers India-ready speech models — engineered
-              for production loops, not academic snapshots. Sampled, annotated
-              and evaluated by linguists across 24 states.
-            </p>
-          </div>
+          <p className="col-span-12 lg:col-span-4 lg:col-start-9 text-muted-foreground self-end leading-relaxed">
+            The substrate that powers India-ready speech models — sampled, annotated
+            and evaluated by linguists across 24 states.
+          </p>
         </div>
 
-        {/* large waveform strip */}
-        <div className="rounded-md border hairline bg-surface/40 p-6 mb-6 flex items-center gap-6">
-          <span className="font-mono text-[10px] text-muted-foreground">SAMPLE_01.wav</span>
-          <div className="flex-1 flex items-center gap-[2px] h-12">
-            {Array.from({ length: 120 }).map((_, i) => (
-              <span
-                key={i}
-                className="wave-bar flex-1 bg-foreground/60 rounded-full"
-                style={{
-                  height: `${15 + (Math.sin(i * 0.4) * 0.5 + 0.5) * 85}%`,
-                  animationDelay: `${(i * 30) % 1400}ms`,
-                }}
-              />
-            ))}
-          </div>
-          <span className="font-mono text-[10px] text-muted-foreground hidden md:block">00:24.812 / 02:11.430</span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border hairline rounded-md overflow-hidden">
+        <div className="border-t hairline">
           {features.map((f, i) => (
             <div
               key={f.k}
-              className={`p-7 bg-surface/40 hover:bg-surface transition group ${
-                i < 3 ? "lg:border-r" : ""
-              } ${i < 2 ? "md:border-r lg:border-r" : ""} ${
-                i < 2 ? "md:border-b lg:border-b-0" : ""
-              } border-b hairline last:border-b-0 md:last:border-b-0`}
+              className={`grid grid-cols-12 gap-6 lg:gap-10 py-10 lg:py-14 border-b hairline ${
+                i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+              }`}
             >
-              <div className="flex items-center justify-between mb-10">
-                <span className="font-mono text-[10px] text-muted-foreground">{f.k}</span>
-                <Waveform bars={6} className="h-3 opacity-60 group-hover:opacity-100" />
+              <div className="col-span-12 lg:col-span-5 flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">{f.k}</span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full border hairline bg-card text-foreground/70">{f.tag}</span>
+                </div>
+                <h3 className="font-display text-3xl lg:text-5xl tracking-[-0.03em] leading-[1.02]">{f.t}</h3>
+                <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed max-w-md">{f.d}</p>
+                <a href="#" className="mt-6 text-sm text-brand hover:text-ember transition">Explore dataset →</a>
               </div>
-              <div className="font-display text-4xl tracking-tight">{f.v}</div>
-              <div className="font-mono text-[10px] text-muted-foreground mt-1 uppercase tracking-wider">{f.l}</div>
-              <div className="font-display text-lg tracking-tight mt-6">{f.t}</div>
-              <div className="text-xs text-muted-foreground mt-2 leading-relaxed">{f.d}</div>
+              <div className="col-span-12 lg:col-span-6 lg:col-start-7 grid grid-cols-3 gap-px bg-border rounded-xl overflow-hidden border hairline">
+                {f.stats.map((s) => (
+                  <div key={s.l} className="bg-card p-5 lg:p-7 flex flex-col justify-between min-h-[140px]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</span>
+                    <span className="font-display text-2xl lg:text-4xl tracking-[-0.03em] text-foreground mt-6">{s.v}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

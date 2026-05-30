@@ -1,23 +1,39 @@
+const links = [
+  { l: "Research", h: "#research" },
+  { l: "ASR Datasets", h: "#asr" },
+  { l: "TTS Evals", h: "#tts" },
+  { l: "Voice of India", h: "#voi" },
+  { l: "Human-1", h: "#human1" },
+  { l: "Contact Us", h: "#contact" },
+];
+
 export function Nav() {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b hairline">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="size-6 rounded-sm bg-foreground grid place-items-center">
-            <span className="text-background font-display text-[10px] font-bold">JT</span>
-          </div>
-          <span className="font-mono text-xs tracking-tight">josh.ai/voice</span>
-        </div>
-        <nav className="hidden md:flex items-center gap-8 text-xs font-mono text-muted-foreground">
-          <a href="#datasets" className="hover:text-foreground transition">Datasets</a>
-          <a href="#infra" className="hover:text-foreground transition">Infrastructure</a>
-          <a href="#trust" className="hover:text-foreground transition">Trust</a>
-          <a href="#research" className="hover:text-foreground transition">Research</a>
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/75 border-b hairline">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
+        <a href="/" className="flex items-center gap-2.5 shrink-0">
+          <span className="size-7 rounded-md bg-brand grid place-items-center">
+            <span className="text-brand-foreground font-display text-[11px] font-semibold leading-none">JT</span>
+          </span>
+          <span className="font-display text-base tracking-tight">
+            Josh Talks <span className="text-ember">AI</span>
+          </span>
+        </a>
+
+        <nav className="hidden lg:flex items-center gap-7 text-[13px] text-muted-foreground">
+          {links.map((n) => (
+            <a key={n.l} href={n.h} className="hover:text-foreground transition relative">
+              {n.l}
+            </a>
+          ))}
         </nav>
-        <div className="flex items-center gap-3">
-          <button className="text-xs font-mono text-muted-foreground hover:text-foreground transition hidden sm:block">Sign in</button>
-          <button className="text-xs font-mono px-3 py-1.5 bg-foreground text-background rounded-sm hover:bg-foreground/90 transition">
-            Request access ↗
+
+        <div className="flex items-center gap-2">
+          <button className="hidden sm:inline-flex text-[13px] px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground transition">
+            Sign In
+          </button>
+          <button className="text-[13px] px-3.5 py-1.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground transition">
+            Login
           </button>
         </div>
       </div>
