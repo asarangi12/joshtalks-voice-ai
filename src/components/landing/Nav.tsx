@@ -29,13 +29,14 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button className="hidden sm:inline-flex text-[13px] px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-surface transition-all duration-300">
+          <button className="btn-lift hidden sm:inline-flex text-[13px] px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-surface">
             Sign In
           </button>
-          <button className="text-[13px] px-3.5 py-1.5 rounded-md bg-brand text-brand-foreground hover:bg-ember transition-colors duration-300">
+          <button className="btn-lift text-[13px] px-3.5 py-1.5 rounded-md bg-brand text-brand-foreground hover:bg-ember">
             Login
           </button>
         </div>
+
       </div>
     </header>
   );

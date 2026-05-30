@@ -77,7 +77,7 @@ export function Infrastructure() {
               <button
                 key={f.k}
                 onClick={() => setActive(f.k)}
-                className={`relative text-sm px-4 py-2 rounded-full transition-colors duration-300 ${
+                className={`tab-underline relative text-sm px-4 py-2 rounded-full transition-colors duration-300 ${
                   active === f.k ? "text-brand-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -91,6 +91,7 @@ export function Infrastructure() {
                 <span className="relative font-mono text-[10px] tracking-[0.18em] uppercase mr-2 opacity-70">{f.k}</span>
                 <span className="relative">{f.tag}</span>
               </button>
+
             ))}
           </div>
         </Reveal>
