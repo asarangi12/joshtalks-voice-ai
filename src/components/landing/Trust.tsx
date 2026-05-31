@@ -1,104 +1,180 @@
 import { motion } from "framer-motion";
 import { Reveal, Stagger, itemVariants } from "./Reveal";
-import { CountUp } from "./CountUp";
 
-function MiniWave() {
+function MiniMap() {
+  // Abstract India-ish node clusters
+  const nodes = [
+    { x: 28, y: 22, r: 2.2, d: 0 },
+    { x: 42, y: 30, r: 1.8, d: 0.4 },
+    { x: 58, y: 18, r: 2, d: 0.8 },
+    { x: 70, y: 34, r: 2.4, d: 1.2 },
+    { x: 36, y: 50, r: 2, d: 0.2 },
+    { x: 52, y: 58, r: 2.6, d: 0.6 },
+    { x: 66, y: 64, r: 1.8, d: 1.0 },
+    { x: 44, y: 76, r: 2.2, d: 0.9 },
+    { x: 60, y: 82, r: 2, d: 1.4 },
+    { x: 30, y: 70, r: 1.6, d: 1.6 },
+  ];
   return (
-    <div className="relative h-28 rounded-md border hairline bg-surface p-3 overflow-hidden group">
-      <div className="absolute inset-x-3 top-1/2 -translate-y-1/2 flex items-center gap-[2px] h-16">
-        {Array.from({ length: 56 }).map((_, i) => (
-          <span
-            key={i}
-            className="wave-bar flex-1 bg-brand/70 rounded-full group-hover:bg-ember transition-colors duration-500"
-            style={{
-              height: `${20 + (Math.sin(i * 0.55 + 1) * 0.5 + 0.5) * 80}%`,
-              animationDelay: `${(i * 50) % 1400}ms`,
-            }}
-          />
+    <div className="relative h-28 rounded-md border hairline bg-surface overflow-hidden group">
+      <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+        {/* faint connective grid */}
+        {nodes.map((n, i) =>
+          nodes.slice(i + 1, i + 3).map((m, j) => (
+            <line
+              key={`${i}-${j}`}
+              x1={n.x} y1={n.y} x2={m.x} y2={m.y}
+              stroke="currentColor"
+              strokeWidth="0.18"
+              className="text-border"
+            />
+          )),
+        )}
+        {nodes.map((n, i) => (
+          <g key={i}>
+            <circle
+              cx={n.x} cy={n.y} r={n.r}
+              className="fill-brand opacity-80 transition-colors duration-500 group-hover:fill-ember"
+            />
+            <circle
+              cx={n.x} cy={n.y} r={n.r}
+              className="fill-none stroke-brand opacity-0 group-hover:opacity-60"
+              style={{
+                animation: `node-ripple 2.4s ${n.d}s ease-out infinite`,
+                strokeWidth: 0.4,
+              }}
+            />
+          </g>
         ))}
-      </div>
-      <div className="absolute bottom-2 left-3 font-mono text-[9px] text-muted-foreground">8 kHz · mono · diversity index 0.87</div>
+      </svg>
+      <div className="absolute bottom-2 left-3 font-mono text-[9px] text-muted-foreground">24 states · 9.4k+ contributors</div>
+      <style>{`@keyframes node-ripple { 0% { r: 1; opacity: 0.7; } 100% { r: 8; opacity: 0; } }`}</style>
     </div>
   );
 }
 
-function MiniBars() {
-  const items = [
-    { l: "WER", v: 92, n: 4.1, suffix: "%", decimals: 1 },
-    { l: "CER", v: 78, n: 1.8, suffix: "%", decimals: 1 },
-    { l: "MOS", v: 88, n: 4.42, suffix: "", decimals: 2 },
-    { l: "BLEU", v: 64, n: 0.71, suffix: "", decimals: 2 },
-  ];
+function MiniPipeline() {
+  const steps = ["L1", "L2", "L3", "L4", "L5"];
   return (
-    <div className="h-28 rounded-md border hairline bg-surface p-3 flex flex-col justify-end gap-2">
-      {items.map((b, i) => (
-        <div key={b.l} className="flex items-center gap-2 font-mono text-[10px]">
-          <span className="w-9 text-muted-foreground">{b.l}</span>
-          <div className="flex-1 h-1.5 bg-border/70 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-brand rounded-full"
-              initial={{ width: 0 }}
-              whileInView={{ width: `${b.v}%` }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 1.2, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            />
+    <div className="relative h-28 rounded-md border hairline bg-surface p-3 overflow-hidden group">
+      <div className="font-mono text-[9px] text-muted-foreground mb-3">validation pipeline · 5-level HITL</div>
+      <div className="relative flex items-center justify-between">
+        {steps.map((s, i) => (
+          <div key={s} className="relative z-10 flex flex-col items-center gap-1.5">
+            <div className="size-5 rounded-full border border-border bg-card flex items-center justify-center font-mono text-[8px] text-foreground/70 group-hover:border-brand/60 group-hover:text-brand transition-colors duration-300"
+              style={{ transitionDelay: `${i * 80}ms` }}>
+              {s}
+            </div>
+            <div className="size-1 rounded-full bg-border group-hover:bg-ember transition-colors duration-300"
+              style={{ transitionDelay: `${i * 80 + 100}ms` }} />
           </div>
-          <span className="w-10 text-right text-foreground/80">
-            <CountUp to={b.n} suffix={b.suffix} decimals={b.decimals} />
-          </span>
+        ))}
+        {/* base track */}
+        <div className="absolute top-2.5 left-2 right-2 h-px bg-border" />
+        {/* sweep bar */}
+        <div className="absolute top-2.5 left-2 right-2 h-px overflow-hidden">
+          <div className="h-full w-full origin-left bg-gradient-to-r from-transparent via-ember to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ animation: "pipe-sweep 1.6s ease-in-out infinite" }} />
         </div>
-      ))}
+      </div>
+      <div className="mt-3 flex items-center justify-between font-mono text-[9px]">
+        <span className="text-muted-foreground">anomaly</span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="size-1 rounded-full bg-ember opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <span className="text-foreground/60 group-hover:text-ember transition-colors duration-300">detected → resolved</span>
+        </span>
+      </div>
+      <style>{`@keyframes pipe-sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }`}</style>
     </div>
   );
 }
 
 function MiniCode() {
   return (
-    <div className="h-28 rounded-md border hairline bg-surface p-3 font-mono text-[10px] leading-relaxed overflow-hidden">
+    <div className="relative h-28 rounded-md border hairline bg-surface p-3 font-mono text-[10px] leading-relaxed overflow-hidden group">
       <div className="text-muted-foreground">// consent.policy</div>
       <div><span className="text-ember">grant</span>(<span className="text-brand">speaker</span>, {`{`}</div>
-      <div className="pl-3">scope: <span className="text-foreground">"research"</span>,</div>
-      <div className="pl-3">revocable: <span className="text-ember">true</span>,</div>
-      <div className="pl-3">pii: <span className="text-foreground">"redacted"</span>,</div>
+      <div className="pl-3">
+        scope: <span className="text-foreground">"research"</span>,
+      </div>
+      <div className="pl-3 flex items-baseline gap-1">
+        <span>email:</span>
+        <span className="relative inline-block">
+          <span className="text-foreground/90 transition-all duration-500 blur-[3px] group-hover:blur-0">
+            "ravi@josh.ai"
+          </span>
+        </span>
+        <span className="text-muted-foreground">→</span>
+        <span className="text-ember">redact()</span>
+      </div>
       <div>{`}`}) <span className="cursor-blink">▍</span></div>
+      {/* scanning beam */}
+      <div className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-brand/15 to-transparent opacity-0 group-hover:opacity-100"
+        style={{ animation: "code-scan 1.8s ease-in-out infinite" }} />
+      <style>{`@keyframes code-scan { 0% { transform: translateX(0); } 100% { transform: translateX(400%); } }`}</style>
     </div>
   );
 }
 
-function MiniSecurity() {
-  const items = [
-    { l: "SOC 2 Type II", ok: true },
-    { l: "ISO 27001", ok: true },
-    { l: "DPDP-aligned", ok: true },
-    { l: "AES-256 at rest", ok: true },
+function MiniLedger() {
+  const rows = [
+    "a93f1e…ce20",
+    "7d20b4…11af",
+    "f0c9e2…7b3d",
+    "be5418…0a99",
   ];
   return (
-    <div className="h-28 rounded-md border hairline bg-surface p-3 flex flex-col justify-between text-[11px]">
-      {items.map((it, i) => (
-        <motion.div
-          key={it.l}
-          initial={{ opacity: 0, x: -8 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, delay: i * 0.1 }}
-          className="flex items-center justify-between font-mono"
-        >
-          <span className="text-foreground/80">{it.l}</span>
-          <span className="inline-flex items-center gap-1.5 text-brand">
-            <span className="size-1.5 rounded-full bg-ember" />
-            <span className="text-[10px]">verified</span>
-          </span>
-        </motion.div>
-      ))}
+    <div className="relative h-28 rounded-md border hairline bg-surface p-3 overflow-hidden group">
+      <div className="flex items-center justify-between font-mono text-[9px] text-muted-foreground mb-2">
+        <span>audit.ledger</span>
+        <span className="inline-flex items-center gap-1">
+          <span className="size-1.5 rounded-full bg-ember" />
+          <span>immutable</span>
+        </span>
+      </div>
+      <div className="relative h-[68px] overflow-hidden">
+        <div className="font-mono text-[10px] leading-[1.55] text-foreground/70 group-hover:text-foreground transition-colors duration-300"
+          style={{ animation: "ledger-scroll 6s linear infinite" }}>
+          {[...rows, ...rows, ...rows].map((h, i) => (
+            <div key={i} className="flex items-center justify-between">
+              <span>#{String(i + 1).padStart(3, "0")} · {h}</span>
+              <span className="text-brand opacity-70 group-hover:opacity-100 transition-opacity">✓</span>
+            </div>
+          ))}
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-3 bg-gradient-to-b from-surface to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3 bg-gradient-to-t from-surface to-transparent" />
+      </div>
+      <style>{`@keyframes ledger-scroll { 0% { transform: translateY(0); } 100% { transform: translateY(-33.33%); } }`}</style>
     </div>
   );
 }
 
 const items = [
-  { k: "01", t: "Grassroots Diversity", d: "Recorded by 9,400+ contributors across 24 Indian states — not pulled from the public web.", v: <MiniWave /> },
-  { k: "02", t: "Measurable Quality", d: "Every drop benchmarked on WER, CER, MOS and BLEU before it reaches your pipeline.", v: <MiniBars /> },
-  { k: "03", t: "Ethical by Design", d: "Informed, revocable consent. Paid fairly. Audit trail per utterance.", v: <MiniCode /> },
-  { k: "04", t: "Enterprise-Grade Security", d: "SOC 2 Type II, ISO 27001, DPDP-aligned. Encrypted in transit and at rest.", v: <MiniSecurity /> },
+  {
+    k: "01",
+    t: "Grassroots Diversity",
+    d: "Collected from real speakers across states, socioeconomic tiers, and dialect regions, exactly where your product will be used.",
+    v: <MiniMap />,
+  },
+  {
+    k: "02",
+    t: "Measurable Quality",
+    d: "5-level human-in-the-loop annotation with automated anomaly detection keeps label error rates exceptionally low.",
+    v: <MiniPipeline />,
+  },
+  {
+    k: "03",
+    t: "Ethical by Design",
+    d: "Consent workflows that meet global standards, automated PII redaction, and contributor revenue-share models.",
+    v: <MiniCode />,
+  },
+  {
+    k: "04",
+    t: "Enterprise-Grade Security",
+    d: "Air-gapped labs, ISO-27001-aligned cloud practices, and full per-file audit trails for compliance teams.",
+    v: <MiniLedger />,
+  },
 ];
 
 export function Trust() {
@@ -124,13 +200,13 @@ export function Trust() {
             <motion.article
               key={it.k}
               variants={itemVariants}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="rounded-xl border hairline bg-card p-6 hover:border-brand/30 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.18)] transition-[border-color,box-shadow] duration-300 flex flex-col"
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 280, damping: 24 }}
+              className="group rounded-xl border hairline bg-card p-6 hover:border-brand/50 hover:shadow-[0_30px_60px_-30px_color-mix(in_oklab,var(--brand)_45%,transparent)] transition-[border-color,box-shadow] duration-300 flex flex-col"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{it.k}</span>
-                <span className="font-mono text-[10px] text-muted-foreground">view →</span>
+                <span className="font-mono text-[10px] text-muted-foreground transition-colors group-hover:text-brand">view →</span>
               </div>
               <h3 className="font-display text-xl tracking-tight">{it.t}</h3>
               <p className="text-[13px] text-muted-foreground mt-2 leading-relaxed">{it.d}</p>
