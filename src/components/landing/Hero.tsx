@@ -207,7 +207,7 @@ export function Hero() {
               variants={itemVariants}
               whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="group relative overflow-hidden rounded-xl border hairline bg-card p-6 flex flex-col min-h-[280px] hover:border-brand/40 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.28)] transition-[border-color,box-shadow,transform] duration-300"
+              className="group relative overflow-hidden rounded-xl border hairline bg-card/40 backdrop-blur-xl supports-[backdrop-filter]:bg-card/30 p-6 flex flex-col min-h-[280px] hover:border-brand/40 hover:bg-card/60 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.28)] transition-[border-color,box-shadow,transform,background-color] duration-300"
             >
               {/* gradient sheen */}
               <span className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
