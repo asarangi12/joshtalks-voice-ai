@@ -152,7 +152,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-[-0.035em] text-balance max-w-[18ch]">
+        <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-tighter lg:tracking-[-0.05em] text-balance max-w-[18ch]">
           {headlineWords.map((w, i) => (
             <motion.span
               key={i}
