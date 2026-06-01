@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Josh Talks Voice AI" },
+      { name: "description", content: "Josh Talks AI Premium offers voice infrastructure for AI in India, providing research-grade datasets and evaluations." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Josh Talks Voice AI" },
+      { property: "og:description", content: "Josh Talks AI Premium offers voice infrastructure for AI in India, providing research-grade datasets and evaluations." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Josh Talks Voice AI" },
+      { name: "twitter:description", content: "Josh Talks AI Premium offers voice infrastructure for AI in India, providing research-grade datasets and evaluations." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56687eb3-6837-4eaa-9584-babf52c74ba2/id-preview-f5bb4ef6--a0f98941-676e-4775-9ddf-3f56d0acb024.lovable.app-1780286247312.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56687eb3-6837-4eaa-9584-babf52c74ba2/id-preview-f5bb4ef6--a0f98941-676e-4775-9ddf-3f56d0acb024.lovable.app-1780286247312.png" },
     ],
     links: [
       {
