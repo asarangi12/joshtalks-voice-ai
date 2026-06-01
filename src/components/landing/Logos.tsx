@@ -16,9 +16,6 @@ export function Logos() {
             <h3 className="font-display text-2xl lg:text-3xl tracking-[-0.025em] max-w-md">
               Trusted by research teams <span className="italic text-brand">globally</span>.
             </h3>
-            <span className="font-mono text-[11px] text-muted-foreground tracking-[0.2em] uppercase">
-              n = 40+ labs · 12 countries
-            </span>
           </div>
         </Reveal>
 

@@ -150,11 +150,9 @@ export function Hero() {
             </span>
             <span className="text-foreground/80">Now serving 40+ AI labs</span>
           </span>
-
-          <span className="hidden sm:inline">India-first voice infrastructure · est. 2018</span>
         </motion.div>
 
-        <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-[-0.035em] text-balance max-w-[18ch]">
+        <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-tighter lg:tracking-[-0.05em] text-balance max-w-[18ch]">
           {headlineWords.map((w, i) => (
             <motion.span
               key={i}
@@ -186,9 +184,7 @@ export function Hero() {
             className="col-span-12 md:col-span-7 lg:col-span-6 text-base lg:text-lg text-muted-foreground max-w-xl leading-relaxed"
           >
             Research-grade datasets and evaluations for top AI labs and tech
-            companies across the world — built on the ground, across{" "}
-            <span className="text-foreground">22 languages</span> and{" "}
-            <span className="text-foreground">700+ dialects</span>.
+            companies across the world — built on the ground.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -197,12 +193,8 @@ export function Hero() {
             className="col-span-12 md:col-span-5 lg:col-span-6 flex md:justify-end items-end gap-3 flex-wrap"
           >
             <button className="btn-lift text-sm px-5 py-2.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground">
-              Request dataset access →
+              Explore Datasets →
             </button>
-            <button className="btn-lift text-sm px-5 py-2.5 rounded-md border hairline bg-card hover:border-foreground/30 hover:bg-surface">
-              Read whitepaper
-            </button>
-
           </motion.div>
         </div>
 
@@ -215,7 +207,7 @@ export function Hero() {
               variants={itemVariants}
               whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="group relative overflow-hidden rounded-xl border hairline bg-card p-6 flex flex-col min-h-[280px] hover:border-brand/40 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.28)] transition-[border-color,box-shadow,transform] duration-300"
+              className="group relative overflow-hidden rounded-xl border hairline bg-card/40 backdrop-blur-xl supports-[backdrop-filter]:bg-card/30 p-6 flex flex-col min-h-[280px] hover:border-brand/40 hover:bg-card/60 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.28)] transition-[border-color,box-shadow,transform,background-color] duration-300"
             >
               {/* gradient sheen */}
               <span className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />

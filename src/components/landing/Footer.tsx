@@ -76,7 +76,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-foreground/75">
               <li><a href="#" className="hover:text-brand transition">Privacy</a></li>
               <li><a href="#" className="hover:text-brand transition">Terms</a></li>
-              <li><a href="#" className="hover:text-brand transition">DPDP</a></li>
+              
               <li><a href="#" className="hover:text-brand transition">Security</a></li>
             </ul>
           </div>

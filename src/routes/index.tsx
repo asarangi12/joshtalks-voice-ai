@@ -6,6 +6,7 @@ import { Trust } from "@/components/landing/Trust";
 import { Infrastructure } from "@/components/landing/Infrastructure";
 import { Logos } from "@/components/landing/Logos";
 import { Footer } from "@/components/landing/Footer";
+import { Scale } from "@/components/landing/Scale";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,6 +33,7 @@ function Index() {
       <Mission />
       <Trust />
       <Infrastructure />
+      <Scale />
       <Logos />
       <Footer />
     </main>

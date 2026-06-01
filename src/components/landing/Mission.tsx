@@ -3,7 +3,7 @@ import { DiversityEngine } from "./DiversityEngine";
 
 export function Mission() {
   return (
-    <section id="research" className="border-b hairline bg-surface/60">
+    <section id="research" className="border-b hairline" style={{ background: "linear-gradient(180deg, #ffffff 0%, #F8F9FA 18%, #F8F9FA 100%)" }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
