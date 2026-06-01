@@ -184,9 +184,7 @@ export function Hero() {
             className="col-span-12 md:col-span-7 lg:col-span-6 text-base lg:text-lg text-muted-foreground max-w-xl leading-relaxed"
           >
             Research-grade datasets and evaluations for top AI labs and tech
-            companies across the world — built on the ground, across{" "}
-            <span className="text-foreground">22 languages</span> and{" "}
-            <span className="text-foreground">700+ dialects</span>.
+            companies across the world — built on the ground.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -195,12 +193,8 @@ export function Hero() {
             className="col-span-12 md:col-span-5 lg:col-span-6 flex md:justify-end items-end gap-3 flex-wrap"
           >
             <button className="btn-lift text-sm px-5 py-2.5 rounded-md bg-brand text-brand-foreground hover:bg-foreground">
-              Request dataset access →
+              Explore Datasets →
             </button>
-            <button className="btn-lift text-sm px-5 py-2.5 rounded-md border hairline bg-card hover:border-foreground/30 hover:bg-surface">
-              Read whitepaper
-            </button>
-
           </motion.div>
         </div>
 
