@@ -150,8 +150,6 @@ export function Hero() {
             </span>
             <span className="text-foreground/80">Now serving 40+ AI labs</span>
           </span>
-
-          <span className="hidden sm:inline">India-first voice infrastructure · est. 2018</span>
         </motion.div>
 
         <h1 className="font-display font-medium text-foreground text-[clamp(2.75rem,8.4vw,7.75rem)] leading-[0.96] tracking-[-0.035em] text-balance max-w-[18ch]">
