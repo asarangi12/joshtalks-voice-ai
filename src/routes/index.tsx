@@ -33,6 +33,7 @@ function Index() {
       <Mission />
       <Trust />
       <Infrastructure />
+      <Scale />
       <Logos />
       <Footer />
     </main>
